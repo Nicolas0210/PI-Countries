@@ -109,6 +109,8 @@ export default function HomePage(){
         setFilter("All")
         const idSearchBar = document.getElementById("input-searchbar") //Esto es para 
         idSearchBar.value = ""                                         //limpiar el input de la search bar despues del submit
+        setOrder("")
+        setCurrentPage(1)
     }
 
 
@@ -134,6 +136,7 @@ export default function HomePage(){
                     <option value="Oceania">Oceania</option>
                 </select>
                 <select onChange={e => handleFilterByActivities(e)} value={filter} className="filter-activities"> {/*filtro de activities*/}
+                <option disabled selected>Filter by activity</option>
                 <option value="All-countries">-All countries-</option>
                     {
                         activities?.map(activity => (

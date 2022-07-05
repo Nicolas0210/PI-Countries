@@ -24,6 +24,14 @@
     transform: scale(1.05);
 }
 
+.pagination-button:disabled{
+    background-color: gray;
+}
+
+.pagination-button:disabled:hover{
+    transform: none
+}
+
 .page-number{
     font-family: fantasy;
     color: black;
