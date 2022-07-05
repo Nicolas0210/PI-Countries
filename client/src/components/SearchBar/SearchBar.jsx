@@ -24,6 +24,7 @@ export default function SearchBar({onSearch}){
                     type="text"
                     placeholder="Search country..."
                     onChange={(e) => handleInputChange(e)}
+                    id="input-searchbar"
                 />
                 <button type="submit" className="button-searchbar">
                 🔎

@@ -107,6 +107,8 @@ export default function HomePage(){
     const onSearch = (name) => {
         dispatch(getCountryByName(name))
         setFilter("All")
+        const idSearchBar = document.getElementById("input-searchbar") //Esto es para 
+        idSearchBar.value = ""                                         //limpiar el input de la search bar despues del submit
     }
 
 
@@ -114,6 +116,8 @@ export default function HomePage(){
         <div className="home-container">
             <div className="nav-container">
                 <NavBar onSearch={onSearch}/>
+                <button onClick={(e) => onSearch("")} className="reset-button">Reset</button>
+                
                 <Link to="/activity" className="create-button">
                 <button className="create-button2">Create your own activity!</button>
                 </Link>

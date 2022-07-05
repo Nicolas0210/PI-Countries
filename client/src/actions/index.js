@@ -86,3 +86,16 @@ export function getActivities(){
         })
     }
 }
+
+export function deleteActivity(countryName, activityName){
+    return async function (dispatch){
+        //console.log(countryName, activityName)
+        const response = await axios.delete(`http://localhost:3001/activity`, {data :{countryName, activityName}})
+    }
+}
+
+export function cleanCountryDetails(){
+    return{
+        type: "CLEAN_COUNTRY_DETAILS"
+    }
+}

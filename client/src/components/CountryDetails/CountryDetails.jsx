@@ -2,7 +2,7 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react'
 import { useParams } from 'react-router'
-import { getDetailedCountry } from '../../actions'
+import { getDetailedCountry, deleteActivity, cleanCountryDetails } from '../../actions'
 import { Link } from 'react-router-dom'
 import "./CountryDetails.css"
 import { ReactComponent as HomeButton} from "../../assets/home-button.svg"
@@ -11,13 +11,24 @@ import { ReactComponent as HomeButton} from "../../assets/home-button.svg"
 export default function CountryDetails(props){
     const dispatch = useDispatch()
     const {id} = useParams()
-    //console.log(id)
+    const country = useSelector(state => state.countryDetails)
+    const countryName = country.name
+   
+    const handleDeleteActivity = (e) => {
+        console.log("first")
+      
+        dispatch(deleteActivity(countryName, e.target.id))
+        dispatch(getDetailedCountry(id))
+    }
 
     useEffect(() => {
         dispatch(getDetailedCountry(id))
-    },[dispatch])
+        return () => {
+            dispatch(cleanCountryDetails())
+        }
+    },[])
 
-    const country = useSelector(state => state.countryDetails)
+    
     //console.log(country)
     return(
         <div>
@@ -44,8 +55,9 @@ export default function CountryDetails(props){
                             {country.touristActivities?.map((activity) => {
                                 return(
                                     <div>
+                                        <button id={activity.name} onClick={(e) => handleDeleteActivity(e)} className="delete-act-button">x</button>
                                         <h1>Activity to do:</h1>
-                                        <p>Name: {activity.name}</p>
+                                        <p id={activity.name}>Name: {activity.name}</p>
                                         {activity.dificulty && <p>Dificulty: {activity.dificulty}</p>}
                                         <p>Duration: {activity.duration} hour/s</p>
                                         {activity.season && <p>Season: {activity.season.charAt(0).toUpperCase() + activity.season.slice(1)}</p>}

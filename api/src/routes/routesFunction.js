@@ -30,11 +30,13 @@ module.exports = {
         try{
             const {name, dificulty, duration, season, countries} = req.body
 
-            const newActivity = await TouristActivity.create({
-                name,
-                dificulty,
-                duration,
-                season
+            const newActivity = await TouristActivity.findOrCreate({
+                where:{
+                    name: name,
+                    dificulty: dificulty,
+                    duration: duration,
+                    season: season
+                }
             })
             countries?.forEach(async (country) => {
                 const countryDB = await Country.findAll({
@@ -42,8 +44,9 @@ module.exports = {
                         name: country
                     }
                 })
-                await newActivity.addCountry(countryDB) 
+                await newActivity[0].addCountry(countryDB) 
             })
+            console.log(newActivity)
             return res.send("Activity created!")
 
         }catch(err){
@@ -153,6 +156,23 @@ module.exports = {
         try{
             const activities = await TouristActivity.findAll()
             return res.json(activities)
+        }catch(err){
+            next(err)
+        }
+    },
+
+    deleteActivity: async function (req, res, next){
+        const {countryName, activityName} = req.body
+        
+        try{
+            const actividad = await TouristActivity.findOne({
+                where:{name: activityName}
+            })
+            const pais= await Country.findOne({
+                where:{name: countryName}
+            })
+            await pais.removeTouristActivity([actividad])
+            res.send("Actividad eliminada")
         }catch(err){
             next(err)
         }

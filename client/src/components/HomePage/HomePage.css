@@ -57,7 +57,8 @@ body{
     height: 38px;
     cursor: pointer;
     font-family: monospace;
-    margin-right: 18px;
+    margin-right: 23px;
+    margin-top: 10px
 }
 
 .create-button2:hover{
@@ -108,4 +109,13 @@ body{
     font-weight: 700;
     background-color: rgba(0, 0, 0, 0.7);
     color: white;
+}
+
+.reset-button{
+    margin-right: 699px;
+    border-radius: 10px;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    margin-top: 6px;
+    cursor: pointer;
 }

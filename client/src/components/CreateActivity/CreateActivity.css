@@ -5,6 +5,7 @@
     margin-top: 11px;
     margin-left: 10px;
     cursor: pointer;
+    border-radius: 10px;
 }
 
 .button-component2{

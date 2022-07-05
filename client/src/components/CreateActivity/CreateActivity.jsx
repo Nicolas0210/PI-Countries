@@ -162,7 +162,7 @@ export default function CreateActivity(){
                             <option selected disabled value="place-holder">-Select one or more countries-</option>
                             {countries.map(country => {
                                 if(!input.countries.includes(country.name)){
-                                    return <option id={country.name} value={country.name}>{country.name}</option>
+                                    return <option key={country.name} id={country.name} value={country.name}>{country.name}</option>
                                 }
                             })}
                         </select>

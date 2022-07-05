@@ -112,6 +112,11 @@ export default function rootReducer(state = initialState, action){
                     filteredCountries: filteredCountries
                 }
             }
+        case "CLEAN_COUNTRY_DETAILS":
+            return{
+                ...state,
+                countryDetails: {}
+            }
         
         default: return state
     }
