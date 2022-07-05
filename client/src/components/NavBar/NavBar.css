@@ -1,0 +1,16 @@
+.nav-container{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.home-button{
+    margin-left: 649px;
+    border-radius: 8px;
+    background: transparent;
+    font-weight: 800;
+}
+
+.home-button-hover{
+    transform: scale(1.08)
+}

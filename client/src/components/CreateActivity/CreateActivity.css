@@ -1,0 +1,100 @@
+.button-home2{
+    background: transparent;
+    border: inset;
+    position: absolute;
+    margin-top: 11px;
+    margin-left: 10px;
+    cursor: pointer;
+}
+
+.button-component2{
+    width: 43px;
+    height: 42px;
+}
+
+.form-container{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.creation-form{
+    border-style: solid;
+    border-radius: 10px;
+    margin-top: 93px;
+    position: absolute;
+    margin-top: 184px;
+    font-family: monospace;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    padding: 10px 9px 10px 9px;
+}
+
+.creation-title-container{
+    margin-top: 110px;
+    font-family: monospace;
+    font-size: 40px;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    border-radius: 10px;
+    padding: 0px 9px 0px 9px;
+}
+
+.input-name{
+    border-radius: 10px;
+}
+
+.input-timer{
+    border-radius: 10px;
+}
+
+.country-select{
+    border-radius: 10px;
+    font-family: monospace;
+}
+
+.button-create-container{
+    padding: 15px 0px 0px 0px;
+}
+
+.act-creation-button{
+    font-family: monospace;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.error-name-alert{
+    padding: 0px 0px 0px 15px;
+    color: red;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.error-country-alert{
+    padding: 0px 0px 0px 15px;
+    color: red;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.delete-act-button{
+    background-color: transparent;
+    color: white;
+    border-color: white;
+    border-radius: 50%;
+    cursor: pointer;
+}
+
+.country-select::-webkit-scrollbar{
+    width: 8px;     
+}
+
+.country-select::-webkit-scrollbar-thumb {
+    background: #ccc;
+    border-radius: 4px;
+}
+
+.country-select::-webkit-scrollbar-thumb:hover {
+    background: #b3b3b3;
+    box-shadow: 0 0 2px 1px rgba(0, 0, 0, 0.2);
+}

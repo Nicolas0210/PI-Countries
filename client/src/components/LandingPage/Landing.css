@@ -1,0 +1,31 @@
+.landing-container{
+    background-image: url("./landing-img4.jpg");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    background-attachment: fixed;
+    height: 100vh;
+    overflow: hidden;
+}
+
+.starting-button{
+    background-color: transparent;
+    font-size: 50px;
+    border-radius: 10px;
+    border: groove;
+    cursor: pointer;
+    border-color: ghostwhite;
+    color: aliceblue;
+}
+
+.button-container{
+    margin-left: 45%;
+    margin-top: 339px;
+}
+
+.starting-button:hover{
+    transform: scale(1.03);
+    transition: all 0.5s ease;
+}
+
+

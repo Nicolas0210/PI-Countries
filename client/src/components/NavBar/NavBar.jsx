@@ -1,11 +1,11 @@
-import React, { useEffect } from 'react'
+import React from 'react'
 import SearchBar from '../SearchBar/SearchBar'
-import {Link} from 'react-router-dom'
+import "./NavBar.css"
 
 
 export default function NavBar({onSearch}){
     return(
-        <div>
+        <div className="nav-container">
             <SearchBar onSearch={onSearch}/>
         </div>
     )

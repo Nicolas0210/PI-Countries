@@ -1,0 +1,31 @@
+.pagination{
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    padding-left: 0;
+}
+
+.page-buttons-container{
+    display: flex;
+    border-style: solid;
+    border-radius: 10px;
+}
+
+.pagination-button{
+    margin: 10px;
+    background-color: transparent;
+    border-radius: 10px;
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+}
+
+.pagination-button:hover{
+    transform: scale(1.05);
+}
+
+.page-number{
+    font-family: fantasy;
+    color: black;
+    font-weight: 1000;
+}

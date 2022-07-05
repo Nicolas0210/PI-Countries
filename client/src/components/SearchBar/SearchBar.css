@@ -1,0 +1,21 @@
+.input-searchbar{
+    width: 485px;
+    height: 22px;
+    border-radius: 10px;
+    background: linear-gradient(45deg, black, transparent);
+    color: white;
+    margin-top: 10px;
+    margin-left: 10px;
+    font-family: monospace;
+}
+
+.button-searchbar{
+    height: 28px;
+    background: transparent;
+    border: none;
+    position: absolute;
+    left: 468px;
+    cursor: pointer;
+    margin-top: 10px;
+
+}

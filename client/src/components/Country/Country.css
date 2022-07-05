@@ -1,0 +1,34 @@
+.card{
+    margin: 35px;
+    width: 276px;
+    height: 316px;
+    border-style: solid;
+    background-color: rgba(0, 0, 0, 0.7);
+    border-bottom-left-radius: 20px;
+    border-bottom-right-radius: 20px;
+}
+
+.img-container{
+    width: 100%;
+    height: 157px;
+}
+
+.name-container{
+    color: white;
+    margin-left: 6px;
+    font-family: monospace;
+}
+
+.link-container{
+    text-decoration: none;
+}
+
+.continent-container{
+    color: white;
+    margin-left: 6px;
+    font-family: monospace;
+}
+
+.card:hover{
+    transform: scale(1.05);
+}

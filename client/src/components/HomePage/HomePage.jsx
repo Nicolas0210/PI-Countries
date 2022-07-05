@@ -1,22 +1,48 @@
 import React from "react"
 import { useState, useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { getAllCountries, filterCountryByContinent, orderByName, orderByPopulation, getCountryByName } from "../../actions"
+import { getAllCountries, filterCountryByContinent, orderByName, orderByPopulation, getCountryByName, getActivities, filterCountryByActivities } from "../../actions"
 import { Link } from "react-router-dom"
 import Countries from "../Countries/Countries"
 import Pagination from "../Pagination/Pagination"
 import NavBar from "../NavBar/NavBar"
+import "./HomePage.css"
+import { ReactComponent as LoadingImg} from "../../assets/world-svgrepo-com.svg"
+import { ReactComponent as BackToTopButton } from "../../assets/up-arrow-svgrepo-com.svg"
+import { ReactComponent as NotFoundIcon } from "../../assets/not-found-icon.svg"
+
 
 
 
 export default function HomePage(){
     const dispatch = useDispatch() 
-    const allCountries = useSelector(state => state.countries) //Me traigo mi state de countries del store
+    const allCountries = useSelector(state => state.allCountries) //Me traigo mi state de countries del store
     const activities = useSelector(state => state.activities)
     const filteredCountries = useSelector(state => state.filteredCountries)
+    const [isLoading, setIsLoading] = useState(true)
 
     const [order, setOrder] = useState("") //estado local para en handleOrder alfabetico
     const [filter, setFilter] = useState("All") //estado local para filtro de continentes
+
+    //Back to top button//
+    const [topButton, setTopButton] = useState(false)
+
+    useEffect(() => {
+        window.addEventListener("scroll", () =>{ // addEventListener agrega el evento y espera que suceda, "scroll" es ese evento
+            if(window.pageYOffset > 500){        // la cantidad de pixeles que escroleo hacia abajo
+                setTopButton(true)
+            }else{
+                setTopButton(false)
+            }
+        }) 
+    }, [])
+
+    const scrollToTop = () => {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        })
+    }
     
 
     
@@ -27,27 +53,52 @@ export default function HomePage(){
     const indexOfFirstCountry = indexOfLastCountry - countriesPerPage // 0
     const currentCountries = filteredCountries.slice(indexOfFirstCountry, indexOfLastCountry) //corta el array de todos los paises desde el index del primer pais hasta el index del ultimo
 
-    const pagination = (pageNumber) => { //Esta constante es la que me sirve para el renderizado
-        setCurrentPage(pageNumber)
+    const pagination = (page) => { //Esta constante es la que me sirve para el renderizado
+        setCurrentPage(page)
     }
+
+    const nextPageButton = () => {
+        setCurrentPage(currentPage + 1)
+    }
+
+    const prevPageButton = () => {
+        setCurrentPage(currentPage - 1)
+    }
+
 
     //console.log(allCountries)
     useEffect(() => { //Hook para usar las actions
         dispatch(getAllCountries())
+        dispatch(getActivities())
     }, [])
 
-    const handleFilterByContinent= (e) => {
-        dispatch(filterCountryByContinent(e.target.value))
+    useEffect(() => {
+        if(allCountries.length === 0){
+            setIsLoading(true)
+        }else{
+            setIsLoading(false)
+        }
+    }, [allCountries])
+
+    const handleFilterByContinent= (e) => { //filtrado por continentes
+        dispatch(filterCountryByContinent(e.target.value))  //despacho la action al reducer
+        setCurrentPage(1)                                   //seteo la pag en 1 para cuando aplique el filtro siempre arranque de la 1er pagina
+        setFilter(e.target.value)                           //seteo el filtro a lo que clickee el usuario
+    }
+
+    const handleFilterByActivities = (e) => {
+        dispatch(filterCountryByActivities(e.target.value))
         setCurrentPage(1)
+        //console.log(e.target.value)
         setFilter(e.target.value)
     }
 
-    const handleOrder = (e) => {
+    const handleOrder = (e) => { //ordenamiento alfabetico y por poblacion (Estan en el mismo select)
         e.preventDefault()
-        if(e.target.value === "Asc" || e.target.value === "Desc"){
-            dispatch(orderByName(e.target.value))
-        }else{
-            dispatch(orderByPopulation(e.target.value))
+        if(e.target.value === "Asc" || e.target.value === "Desc"){  //Si el click es en "Asc" o "Desc"
+            dispatch(orderByName(e.target.value))                   //se aplica esta action
+        }else{  
+            dispatch(orderByPopulation(e.target.value))             //si el click es para poblacion se aplcia la action de poblacion
         }
         setCurrentPage(1)
         setOrder(e.target.value)
@@ -60,38 +111,63 @@ export default function HomePage(){
 
 
     return(
-        <div>
-            <h1>HOME</h1>
-            <NavBar onSearch={onSearch}/>
-            <select onChange={e => handleFilterByContinent(e)} value={filter}> {/*filtro por continentes*/}
-                <option value="All">All continents</option>
-                <option value="Africa">Africa</option>
-                <option value="Asia">Asia</option>
-                <option value="Antarctica">Antarctica</option>
-                <option value="Europe">Europe</option>
-                <option value="North America">North America</option>
-                <option value="South America">South America</option>
-                <option value="Oceania">Oceania</option>
-            </select>
-            <select> {/*filtro de activities*/}
-                {
-                    activities?.map(activity => (
-                        <option value={activity.name}>{activity.name}</option>
-                    ))
-                }
-            </select>
-            <select onChange={e => handleOrder(e)} value={order}> {/*ordenamiento alfabetico*/}
-                <option value="Asc">A-Z</option>
-                <option value="Desc">Z-A</option>
-                <option value="Ascendente">Asc</option>
-                <option value="Descendente">Desc</option>
-            </select>
-            <Link to="/activity">
-                <button>Create your own activity!</button>
-            </Link>
-            <Pagination countriesPerPage={countriesPerPage} allCountries={filteredCountries.length} pagination={pagination} />
-            <Countries allCountries={currentCountries}/>
-            
+        <div className="home-container">
+            <div className="nav-container">
+                <NavBar onSearch={onSearch}/>
+                <Link to="/activity" className="create-button">
+                <button className="create-button2">Create your own activity!</button>
+                </Link>
+            </div>
+            <div className="filters-container">
+                <select onChange={e => handleFilterByContinent(e)} value={filter} className="filter-continents"> {/*filtro por continentes*/}
+                    <option value="All">All continents</option>
+                    <option value="Africa">Africa</option>
+                    <option value="Asia">Asia</option>
+                    <option value="Antarctica">Antarctica</option>
+                    <option value="Europe">Europe</option>
+                    <option value="North America">North America</option>
+                    <option value="South America">South America</option>
+                    <option value="Oceania">Oceania</option>
+                </select>
+                <select onChange={e => handleFilterByActivities(e)} value={filter} className="filter-activities"> {/*filtro de activities*/}
+                <option value="All-countries">-All countries-</option>
+                    {
+                        activities?.map(activity => (
+                            <option value={activity.name}>{activity.name}</option>
+                        ))
+                    }
+                </select>
+                <select onChange={e => handleOrder(e)} value={order} className="order-filter"> {/*ordenamiento alfabetico*/}
+                    <option value="Asc">A-Z</option>
+                    <option value="Desc">Z-A</option>
+                    <option value="Ascendente">Most population</option>
+                    <option value="Descendente">Less population</option>
+                </select>
+            </div>
+            <Pagination 
+                countriesPerPage={countriesPerPage} 
+                allCountries={filteredCountries.length} 
+                pagination={pagination} 
+                nextPageButton={nextPageButton}
+                prevPageButton={prevPageButton}
+                currentPage={currentPage}/>
+            {
+                isLoading ? 
+                <div className="loading-container">
+                    <LoadingImg className="loading-img"/>
+                </div> : filteredCountries.length ?
+                <Countries allCountries={currentCountries}/> :
+                <div className="not-found-icon-cont">
+                <NotFoundIcon className="not-found-icon"/>
+                <p className="not-found-text">{"Whoops! Seems like that country is not from this planet!"}</p>
+                </div>
+            }
+
+            {
+                topButton && (
+                    <BackToTopButton onClick={(e) => scrollToTop(e)} className="back-to-top"/>
+                )
+            }
         </div>
     )
 }

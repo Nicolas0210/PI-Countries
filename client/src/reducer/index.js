@@ -1,4 +1,5 @@
 const initialState = {
+    allCountries: [],
     countries: [], // aca guardo todos los countries
     activities: [], // aca las actividades
     countryDetails: {}, // aca el country por id (detailedCountry, este va a ser uno solo por eso es objeto)
@@ -10,6 +11,7 @@ export default function rootReducer(state = initialState, action){
         case "GET_ALL_COUNTRIES":
             return{
                 ...state,
+                allCountries: action.payload,
                 countries: action.payload,
                 filteredCountries: action.payload // esto es para cuando traigo a todos los paises por primera vez los meta en filteredCoutries tambien (para el filtro de All continents)
             }
@@ -23,11 +25,6 @@ export default function rootReducer(state = initialState, action){
             return{
                 ...state,
                 countryDetails: action.payload
-            }
-        case "POST_ACTIVITY":
-            return{
-                ...state,
-                activities: action.payload
             }
         case "FILTER_BY_CONTINENT":
             const allCountries = state.countries
@@ -45,6 +42,7 @@ export default function rootReducer(state = initialState, action){
                     if(b.name > a.name){
                         return -1
                     }
+                    return 1
                 }) : 
                 state.filteredCountries.sort(function(a, b){
                     if(a.name > b.name){
@@ -53,6 +51,7 @@ export default function rootReducer(state = initialState, action){
                     if(b.name > a.name){
                         return 1
                     }
+                    return -1
                 })
             return{
                 ...state,
@@ -67,6 +66,7 @@ export default function rootReducer(state = initialState, action){
                     if(b.population > a.population){
                         return 1
                     }
+                    return -1
                 }) :
                 state.filteredCountries.sort(function(a, b){
                     if(a.population > b.population){
@@ -75,10 +75,42 @@ export default function rootReducer(state = initialState, action){
                     if(b.population > a.population){
                         return -1
                     }
+                    return 1
                 })
             return{
                 ...state,
                 filteredCountries: sorteredCountries2
+            }
+        case "GET_ACTIVITIES":
+            return{
+                ...state,
+                activities: action.payload
+            }    
+        case "FILTER_ACTIVITIES":
+            const countries = state.countries
+            if(action.payload === "All-countries"){
+                return{
+                    ...state,
+                    filteredCountries: countries
+                }
+            }else{
+                //console.log(action.payload)
+                const filteredCountries = countries.filter(country => {
+                    //console.log(country)
+                    for(let i = 0; i < country.touristActivities?.length; i++){
+                        //console.log(country.touristActivities[i].name)
+                        if(country.touristActivities[i].name === action.payload){
+                            return true
+                        }
+                    }
+                    return false
+                }
+                )
+                //console.log(state.filteredCountries)
+                return{
+                    ...state,
+                    filteredCountries: filteredCountries
+                }
             }
         
         default: return state

@@ -29,7 +29,6 @@ module.exports = {
     postActivity: async function (req, res, next){
         try{
             const {name, dificulty, duration, season, countries} = req.body
-            //console.log(countries)
 
             const newActivity = await TouristActivity.create({
                 name,
@@ -61,7 +60,9 @@ module.exports = {
                 return res.json(countryName)
             }else{                                              //Si no me pasan un name
 
-                const dbCountries = Country.findAll()           //Primero compruebo si los paises ya estan en mi DB, si no estan hago todo lo de abajo 
+                const dbCountries = await Country.findAll({
+                    include: {model: TouristActivity}
+                })         //Primero compruebo si los paises ya estan en mi DB, si no estan hago todo lo de abajo 
                 if(dbCountries.length > 0){                     //haciendo el pedido a la API y llenando mi DB
                     dbCountries.sort(function(a, b){
                         if(a.name > b.name){
@@ -80,7 +81,7 @@ module.exports = {
                         return{
                             id: country.cca3? country.cca3 : "",
                             name: country.name.official,
-                            flag: country.flags[1],
+                            flag: country.flags[0],
                             continents: country.continents? country.continents[0] : "",          //Uso ternarios porque hay props que estan vacias.
                             capital: country.capital? country.capital[0] : "",
                             sub_region: country.subregion? country.subregion : "",
@@ -103,7 +104,9 @@ module.exports = {
                             }
                         })
                     })
-                    const allCountries = await Country.findAll()
+                    const allCountries = await Country.findAll({
+                        include: {model: TouristActivity}
+                    })
                     allCountries.sort(function(a, b){ 
                         if(a.name > b.name){
                             return 1
@@ -145,5 +148,14 @@ module.exports = {
             next(err)
         }
     },
+
+    getActivities: async function (req, res, next){
+        try{
+            const activities = await TouristActivity.findAll()
+            return res.json(activities)
+        }catch(err){
+            next(err)
+        }
+    }
 
 }

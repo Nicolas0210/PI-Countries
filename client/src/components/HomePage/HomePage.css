@@ -1,0 +1,111 @@
+body{
+    background-image: url("./home-img7.jpg");
+    background-repeat: no-repeat;
+    background-position: center center;
+    background-size: cover;
+    background-attachment: fixed;
+}
+
+.filters-container{
+    margin-top: 10px;
+    margin-left: 10px;
+}
+
+.filter-continents{
+    border-radius: 10px;
+    width: 155px;
+    height: 25px;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    cursor: pointer;
+    font-family: monospace;
+}
+
+.filter-activities{
+    border-radius: 10px;
+    width: 155px;
+    height: 25px;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    cursor: pointer;
+    font-family: monospace;
+}
+
+.order-filter{
+    border-radius: 10px;
+    width: 155px;
+    height: 25px;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    cursor: pointer;
+    font-family: monospace;
+}
+
+.nav-container{
+    display: flex;
+}
+
+.create-button{
+    margin-top: 10px;
+}
+
+.create-button2{
+    border-radius: 10px;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+    width: 155px;
+    height: 38px;
+    cursor: pointer;
+    font-family: monospace;
+    margin-right: 18px;
+}
+
+.create-button2:hover{
+    transform: scale(1.08);
+}
+
+.loading-img{
+    width: 200px;
+    height: 200px;
+    margin-top: 50px;
+    animation: spin 1.5s linear infinite
+}
+@keyframes spin {
+    0% { transform: rotate(359deg); }
+    100% { transform: rotate(0deg); }
+}
+
+.loading-container{
+    display: flex;
+    justify-content: center;
+    margin-top: 117px;
+}
+
+.back-to-top{
+    position: absolute;
+    width: 100px;
+    right: 34px;
+    bottom: -535px;
+    cursor: pointer;
+    height: 100px;
+}
+
+.not-found-icon-cont{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.not-found-icon{
+    width: 270px;
+    height: 270px;
+}
+
+.not-found-text{
+    border-style: solid;
+    border-radius: 10px;
+    padding: 10px;
+    font-weight: 700;
+    background-color: rgba(0, 0, 0, 0.7);
+    color: white;
+}

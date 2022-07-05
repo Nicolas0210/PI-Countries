@@ -10,6 +10,16 @@ export function getAllCountries(){
     }
 }
 
+// function(dispatch){
+//     axios("url")
+//     .then((response) => {
+//         dispatch({
+//             type: "asd",
+//             payload: response.data
+//         })
+//     })
+// }
+
 export function getCountryByName(name){
     return async function(dispatch){
         const response = await axios(`http://localhost:3001/countries?name=${name}`)
@@ -32,18 +42,9 @@ export function getDetailedCountry(id){
 
 export function postActivity(props){
     return async function(dispatch){
-        const response = await axios(`http://localhost:3001/activity`,{
-            method: "POST",
-            headers: {
-                'Accept': 'application/json, text/plain, */*',
-                'Content-Type': 'application/json'
-            },
-            body: JSON.stringify(props)    
-        })
-        return{
-            type: "POST_ACTIVITY",
-            payload: response.data
-        }
+        const response = await axios.post(`http://localhost:3001/activity`, props)
+        //console.log(props)
+        return response
     }
 }
 
@@ -54,12 +55,13 @@ export function filterCountryByContinent(payload){ //este payload es el value de
     }
 }
 
-// export function filterCountryByActivities(payload){ //este paylaoad va a ser el nombre de la actividad creada
-//     return{
-//         type: "FILTER_ACTIVITIES",
-//         payload
-//     }
-// }
+export function filterCountryByActivities(payload){ //este paylaoad va a ser el nombre de la actividad creada
+    //console.log(payload)
+    return{
+        type: "FILTER_ACTIVITIES",
+        payload
+    }
+}
 
 export function orderByName(payload){
     return{
@@ -72,5 +74,15 @@ export function orderByPopulation(payload){
     return{
         type: "ORDER_BY_POPULATION",    
         payload
+    }
+}
+
+export function getActivities(){
+    return async function (dispatch){
+        const response = await axios(`http://localhost:3001/activity`)
+        dispatch({
+            type: "GET_ACTIVITIES",
+            payload: response.data
+        })
     }
 }
