@@ -2,7 +2,7 @@ import axios from 'axios'
 
 export function getAllCountries(){
     return async function(dispatch){
-        const response = await axios(`http://localhost:3001/countries`)
+        const response = await axios(`/countries`)
         dispatch({
             type: "GET_ALL_COUNTRIES",
             payload: response.data
@@ -22,7 +22,7 @@ export function getAllCountries(){
 
 export function getCountryByName(name){
     return async function(dispatch){
-        const response = await axios(`http://localhost:3001/countries?name=${name}`)
+        const response = await axios(`/countries?name=${name}`)
         dispatch({
             type: "GET_COUNTRY_BY_NAME",
             payload: response.data
@@ -32,7 +32,7 @@ export function getCountryByName(name){
 
 export function getDetailedCountry(id){
     return async function(dispatch){
-        const response = await axios(`http://localhost:3001/countries/${id}`)
+        const response = await axios(`/countries/${id}`)
         dispatch({
             type: "GET_DETAILED_COUNTRY",
             payload: response.data
@@ -42,7 +42,7 @@ export function getDetailedCountry(id){
 
 export function postActivity(props){
     return async function(dispatch){
-        const response = await axios.post(`http://localhost:3001/activity`, props)
+        const response = await axios.post(`/activity`, props)
         //console.log(props)
         return response
     }
@@ -79,7 +79,7 @@ export function orderByPopulation(payload){
 
 export function getActivities(){
     return async function (dispatch){
-        const response = await axios(`http://localhost:3001/activity`)
+        const response = await axios(`/activity`)
         dispatch({
             type: "GET_ACTIVITIES",
             payload: response.data
@@ -90,7 +90,7 @@ export function getActivities(){
 export function deleteActivity(countryName, activityName){
     return async function (dispatch){
         //console.log(countryName, activityName)
-        const response = await axios.delete(`http://localhost:3001/activity`, {data :{countryName, activityName}})
+        const response = await axios.delete(`/activity`, {data :{countryName, activityName}})
     }
 }
 
