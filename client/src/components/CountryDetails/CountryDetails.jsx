@@ -15,8 +15,7 @@ export default function CountryDetails(props){
     const countryName = country.name
    
     const handleDeleteActivity = (e) => {
-        console.log("first")
-      
+        //console.log(countryName, e.target.id)
         dispatch(deleteActivity(countryName, e.target.id))
         dispatch(getDetailedCountry(id))
     }
@@ -54,10 +53,10 @@ export default function CountryDetails(props){
                         (<div className="activity-container">
                             {country.touristActivities?.map((activity) => {
                                 return(
-                                    <div>
-                                        <button id={activity.name} onClick={(e) => handleDeleteActivity(e)} className="delete-act-button">x</button>
+                                    <div key={activity}>
+                                        <button id={activity.id} onClick={(e) => handleDeleteActivity(e)} className="delete-act-button">x</button>
                                         <h1>Activity to do:</h1>
-                                        <p id={activity.name}>Name: {activity.name}</p>
+                                        <p id={activity.id}>Name: {activity.name}</p>
                                         {activity.dificulty && <p>Dificulty: {activity.dificulty}</p>}
                                         <p>Duration: {activity.duration} hour/s</p>
                                         {activity.season && <p>Season: {activity.season.charAt(0).toUpperCase() + activity.season.slice(1)}</p>}

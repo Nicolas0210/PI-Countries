@@ -166,7 +166,7 @@ export default function CreateActivity(){
                                 }
                             })}
                         </select>
-                            <ul>{input.countries.map(country => <li>{country}<button value={country} onClick={(e) => handleDeleteCountry(e)} className="delete-act-button"> x</button></li>)}</ul>
+                            <ul>{input.countries.map(country => <li key={country}>{country}<button value={country} onClick={(e) => handleDeleteCountry(e)} className="delete-act-button"> x</button></li>)}</ul>
                             {!errors.country ? null : <p className="error-country-alert">{errors.country}</p>}
                     </div>
                     <div className="button-create-container">

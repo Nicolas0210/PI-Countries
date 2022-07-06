@@ -162,16 +162,26 @@ module.exports = {
     },
 
     deleteActivity: async function (req, res, next){
-        const {countryName, activityName} = req.body
+        const {countryName, activityId} = req.body
         
         try{
-            const actividad = await TouristActivity.findOne({
-                where:{name: activityName}
-            })
+            //console.log("el delete", countryName, activityId)
+            const actividad = await TouristActivity.findByPk(activityId)
             const pais= await Country.findOne({
                 where:{name: countryName}
             })
             await pais.removeTouristActivity([actividad])
+
+            const countryActivity = await TouristActivity.findOne({
+                where: {id: activityId},
+                include: Country 
+            })
+            if(!countryActivity.countries.length || !countryActivity.countries){
+                await TouristActivity.destroy({
+                    where: {id: countryActivity.id}
+                })
+            }
+            console.log("asd", countryActivity)
             res.send("Actividad eliminada")
         }catch(err){
             next(err)

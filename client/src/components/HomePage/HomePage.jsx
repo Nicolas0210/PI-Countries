@@ -140,7 +140,7 @@ export default function HomePage(){
                 <option value="All-countries">-All countries-</option>
                     {
                         activities?.map(activity => (
-                            <option value={activity.name}>{activity.name}</option>
+                            <option value={activity.name} key={activity.name}>{activity.name}</option>
                         ))
                     }
                 </select>

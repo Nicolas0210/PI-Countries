@@ -87,10 +87,10 @@ export function getActivities(){
     }
 }
 
-export function deleteActivity(countryName, activityName){
+export function deleteActivity(countryName, activityId){
     return async function (dispatch){
-        //console.log(countryName, activityName)
-        const response = await axios.delete(`/activity`, {data :{countryName, activityName}})
+        //console.log(countryName, activityId)
+        const response = await axios.delete(`/activity`, {data :{countryName, activityId}})
     }
 }
 
