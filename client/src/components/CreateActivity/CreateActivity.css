@@ -84,6 +84,7 @@
     border-color: white;
     border-radius: 50%;
     cursor: pointer;
+    margin-left: 7px;
 }
 
 .country-select::-webkit-scrollbar{

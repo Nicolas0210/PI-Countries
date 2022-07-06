@@ -2,7 +2,7 @@ import React from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useEffect } from 'react'
 import { useParams } from 'react-router'
-import { getDetailedCountry, deleteActivity, cleanCountryDetails } from '../../actions'
+import { getDetailedCountry, deleteActivity } from '../../actions'
 import { Link } from 'react-router-dom'
 import "./CountryDetails.css"
 import { ReactComponent as HomeButton} from "../../assets/home-button.svg"
@@ -22,9 +22,6 @@ export default function CountryDetails(props){
 
     useEffect(() => {
         dispatch(getDetailedCountry(id))
-        return () => {
-            dispatch(cleanCountryDetails())
-        }
     },[])
 
     

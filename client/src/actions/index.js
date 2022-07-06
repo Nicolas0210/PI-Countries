@@ -93,9 +93,3 @@ export function deleteActivity(countryName, activityId){
         const response = await axios.delete(`/activity`, {data :{countryName, activityId}})
     }
 }
-
-export function cleanCountryDetails(){
-    return{
-        type: "CLEAN_COUNTRY_DETAILS"
-    }
-}
