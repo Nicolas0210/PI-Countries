@@ -10,15 +10,6 @@ export function getAllCountries(){
     }
 }
 
-// function(dispatch){
-//     axios("url")
-//     .then((response) => {
-//         dispatch({
-//             type: "asd",
-//             payload: response.data
-//         })
-//     })
-// }
 
 export function getCountryByName(name){
     return async function(dispatch){
@@ -43,20 +34,18 @@ export function getDetailedCountry(id){
 export function postActivity(props){
     return async function(dispatch){
         const response = await axios.post(`/activity`, props)
-        //console.log(props)
         return response
     }
 }
 
-export function filterCountryByContinent(payload){ //este payload es el value de cada option que yo setee en mi home
+export function filterCountryByContinent(payload){ 
     return{
         type: "FILTER_BY_CONTINENT",
         payload
     }
 }
 
-export function filterCountryByActivities(payload){ //este paylaoad va a ser el nombre de la actividad creada
-    //console.log(payload)
+export function filterCountryByActivities(payload){ 
     return{
         type: "FILTER_ACTIVITIES",
         payload
@@ -89,7 +78,6 @@ export function getActivities(){
 
 export function deleteActivity(countryName, activityId){
     return async function (dispatch){
-        //console.log(countryName, activityId)
         const response = await axios.delete(`/activity`, {data :{countryName, activityId}})
     }
 }

@@ -26,6 +26,7 @@
 
 .pagination-button:disabled{
     background-color: gray;
+    color: black
 }
 
 .pagination-button:disabled:hover{

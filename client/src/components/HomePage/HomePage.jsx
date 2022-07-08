@@ -22,7 +22,8 @@ export default function HomePage(){
     const [isLoading, setIsLoading] = useState(true)
 
     const [order, setOrder] = useState("") //estado local para en handleOrder alfabetico
-    const [filter, setFilter] = useState("All") //estado local para filtro de continentes
+    const [filterContinents, setFilterContinents] = useState("All") //estado local para filtro de continentes
+    const [filterActivities, setFilterActivities] = useState("All-countries") //estado local para filtro de actividades
 
     //Back to top button//
     const [topButton, setTopButton] = useState(false)
@@ -83,14 +84,13 @@ export default function HomePage(){
     const handleFilterByContinent= (e) => { //filtrado por continentes
         dispatch(filterCountryByContinent(e.target.value))  //despacho la action al reducer
         setCurrentPage(1)                                   //seteo la pag en 1 para cuando aplique el filtro siempre arranque de la 1er pagina
-        setFilter(e.target.value)                           //seteo el filtro a lo que clickee el usuario
+        setFilterContinents(e.target.value)                           //seteo el filtro a lo que clickee el usuario
     }
 
     const handleFilterByActivities = (e) => {
         dispatch(filterCountryByActivities(e.target.value))
         setCurrentPage(1)
-        //console.log(e.target.value)
-        setFilter(e.target.value)
+        setFilterActivities(e.target.value)
     }
 
     const handleOrder = (e) => { //ordenamiento alfabetico y por poblacion (Estan en el mismo select)
@@ -106,7 +106,7 @@ export default function HomePage(){
 
     const onSearch = (name) => {
         dispatch(getCountryByName(name))
-        setFilter("All")
+        setFilterContinents("All")
         const idSearchBar = document.getElementById("input-searchbar") //Esto es para 
         idSearchBar.value = ""                                         //limpiar el input de la search bar despues del submit
         setOrder("")
@@ -125,7 +125,7 @@ export default function HomePage(){
                 </Link>
             </div>
             <div className="filters-container">
-                <select onChange={e => handleFilterByContinent(e)} value={filter} className="filter-continents"> {/*filtro por continentes*/}
+                <select onChange={e => handleFilterByContinent(e)} value={filterContinents} className="filter-continents"> {/*filtro por continentes*/}
                     <option value="All">All continents</option>
                     <option value="Africa">Africa</option>
                     <option value="Asia">Asia</option>
@@ -135,7 +135,7 @@ export default function HomePage(){
                     <option value="South America">South America</option>
                     <option value="Oceania">Oceania</option>
                 </select>
-                <select onChange={e => handleFilterByActivities(e)} value={filter} className="filter-activities"> {/*filtro de activities*/}
+                <select onChange={e => handleFilterByActivities(e)} value={filterActivities} className="filter-activities"> {/*filtro de activities*/}
                 <option disabled selected>Filter by activity</option>
                 <option value="All-countries">-All countries-</option>
                     {
@@ -144,7 +144,7 @@ export default function HomePage(){
                         ))
                     }
                 </select>
-                <select onChange={e => handleOrder(e)} value={order} className="order-filter"> {/*ordenamiento alfabetico*/}
+                <select onChange={e => handleOrder(e)} value={order} className="order-filter"> {/*ordenamiento alfabetico y por poblacion*/}
                     <option value="Asc">A-Z</option>
                     <option value="Desc">Z-A</option>
                     <option value="Ascendente">Most population</option>

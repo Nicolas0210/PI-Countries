@@ -94,11 +94,8 @@ export default function rootReducer(state = initialState, action){
                     filteredCountries: countries
                 }
             }else{
-                //console.log(action.payload)
                 const filteredCountries = countries.filter(country => {
-                    //console.log(country)
                     for(let i = 0; i < country.touristActivities?.length; i++){
-                        //console.log(country.touristActivities[i].name)
                         if(country.touristActivities[i].name === action.payload){
                             return true
                         }
@@ -106,16 +103,10 @@ export default function rootReducer(state = initialState, action){
                     return false
                 }
                 )
-                //console.log(state.filteredCountries)
                 return{
                     ...state,
                     filteredCountries: filteredCountries
                 }
-            }
-        case "CLEAN_COUNTRY_DETAILS":
-            return{
-                ...state,
-                countryDetails: {}
             }
         
         default: return state

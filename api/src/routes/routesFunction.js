@@ -8,7 +8,7 @@ const countryByName= async function(name){
             where: {
                 name: {[Op.iLike]: `%${name}%`}  // en donde el name contenga el substring del name pasado por query
             },
-            include: {model: TouristActivity}    // incluyendo el modelo de las actividades
+            include: {model: TouristActivity}    
         })
         response.sort(function(a, b){
             if(a.name > b.name){
@@ -18,7 +18,6 @@ const countryByName= async function(name){
                 return -1
             }
         })
-        //console.log(response)
         return response
     }    
 }
@@ -58,15 +57,15 @@ module.exports = {
     getCountries: async function (req, res, next) {
         try{
             const {name} = req.query
-            if(name){                                           //Si me pasan un name por query 
-                const countryName = await countryByName(name)   //uso la funcion que hice de countryByName
+            if(name){                                           
+                const countryName = await countryByName(name)
                 return res.json(countryName)
-            }else{                                              //Si no me pasan un name
+            }else{                                              
 
                 const dbCountries = await Country.findAll({
                     include: {model: TouristActivity}
-                })         //Primero compruebo si los paises ya estan en mi DB, si no estan hago todo lo de abajo 
-                if(dbCountries.length > 0){                     //haciendo el pedido a la API y llenando mi DB
+                })         
+                if(dbCountries.length > 0){                     
                     dbCountries.sort(function(a, b){
                         if(a.name > b.name){
                             return 1
@@ -130,8 +129,6 @@ module.exports = {
         const {countryId} = req.params
         try{
             const results = await axios(`https://restcountries.com/v3/alpha/${countryId}`)
-            //console.log(results)
-            //if(results.data.status === 400) return res.send("Whoops! Seems like that country doesnt exist in this planet!")
             results.data.map(result => {
                 return{
                     flag: result.flags[1],
@@ -165,7 +162,6 @@ module.exports = {
         const {countryName, activityId} = req.body
         
         try{
-            //console.log("el delete", countryName, activityId)
             const actividad = await TouristActivity.findByPk(activityId)
             const pais= await Country.findOne({
                 where:{name: countryName}

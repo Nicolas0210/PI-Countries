@@ -15,7 +15,6 @@ export default function CountryDetails(props){
     const countryName = country.name
    
     const handleDeleteActivity = (e) => {
-        //console.log(countryName, e.target.id)
         dispatch(deleteActivity(countryName, e.target.id))
         dispatch(getDetailedCountry(id))
     }
@@ -25,7 +24,6 @@ export default function CountryDetails(props){
     },[])
 
     
-    //console.log(country)
     return(
         <div>
             <Link to="/home">
