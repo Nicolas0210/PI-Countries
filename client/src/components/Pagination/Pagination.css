@@ -30,7 +30,8 @@
 }
 
 .pagination-button:disabled:hover{
-    transform: none
+    transform: none;
+    cursor: default;
 }
 
 .page-number{
